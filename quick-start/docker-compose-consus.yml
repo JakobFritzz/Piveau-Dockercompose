@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  piveau-consus-importing-rdf:
+    build: piveau-consus-importing-rdf
+    logging:
+      options:
+        max-size: "50m"
+    ports:
+      - '8090:8080'
+
+  piveau-consus-exporting-hub:
+    build: piveau-consus-exporting-hub
+    logging:
+      options:
+        max-size: "50m"
+    ports:
+      - '8091:8080'
+    environment:
+      - PIVEAU_HUB_APIKEY=bfd33c68-c2fe-428e-85dc-1cd3e5e2f1be
+
+  piveau-consus-scheduling:
+    build: piveau-consus-scheduling
+    logging:
+      options:
+        max-size: "50m"
+    ports:
+      - '8092:8080'
+      - '8093:8085'
+    environment:
+      - PIVEAU_SHELL_CONFIG={"http":{"host":"0.0.0.0","port":8085}}

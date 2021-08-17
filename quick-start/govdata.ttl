@@ -1,0 +1,12 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dc: <http://purl.org/dc/terms/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://piveau.eu/id/catalogue/govdata>
+  a dcat:Catalog ;
+  dc:language <http://publications.europa.eu/resource/authority/language/DEU> ;
+  dc:title "GovData"@de ;
+  dc:title "GovData"@en ;
+  dc:description "Das Datenportal für Deutschland"@de ;
+  dc:description "Open Data Portal Germany"@en ;
+  dc:type "dcat-ap"^^xsd:string .
