@@ -73,7 +73,7 @@ services:
       - 9300:9300
 
   virtuoso:
-    image: piveau/piveau-virtuoso
+    image:  openlink/virtuoso-opensource-7:latest
     logging:
       options:
         max-size: "50m"
