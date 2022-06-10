@@ -1,0 +1,40 @@
+header:
+  id: 70a1f83e-cfe1-4fce-8dd1-16a7139a42e0
+  name: data-gov-uk
+  title: Harvester - data.gov.uk
+  version: "2.0.0"
+  context: DEU
+  transport: payload
+body:
+  segments:
+    - header:
+        name: piveau-consus-importing-ckan
+        segmentNumber: 1
+        title: Importing ckan
+        processed: false
+      body:
+        config:
+          address: https://data.gov.uk
+          catalogue: data-gov-uk
+    - header:
+        name: piveau-consus-transforming-js
+        segmentNumber: 2
+        title: Transforming js
+        processed: false
+      body:
+        config:
+          single: true
+          scriptType: repository
+          repository:
+            uri: https://gitlab.fokus.fraunhofer.de/dataeuropa/misc/transformation-scripts.git
+            username: gitlab+deploy-token-168
+            token: 19wjrsaYgGQ63sLPc-r4
+            script: js/data-gov-uk-to-dcat-ap.js
+          params:
+            defaultLanguage: en
+    - header:
+        name: piveau-consus-exporting-hub
+        segmentNumber: 3
+        title: Exporting hub
+        processed: false
+      body: {}
