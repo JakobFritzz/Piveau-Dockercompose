@@ -24,12 +24,8 @@ body:
       body:
         config:
           single: true
-          scriptType: repository
-          repository:
-            uri: https://gitlab.fokus.fraunhofer.de/dataeuropa/misc/transformation-scripts.git
-            username: gitlab+deploy-token-168
-            token: 19wjrsaYgGQ63sLPc-r4
-            script: js/data-gov-uk-to-dcat-ap.js
+          scriptType: localFile
+          path: data-gov-uk-to-dcat-ap.js
           params:
             defaultLanguage: en
     - header:
