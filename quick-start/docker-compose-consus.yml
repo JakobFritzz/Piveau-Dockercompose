@@ -7,6 +7,12 @@ services:
       options:
         max-size: "50m"
 
+  piveau-consus-importing-ckan:
+    build: piveau-consus-importing-ckan
+    logging:
+      options:
+        max-size: "50m"
+
   piveau-consus-transforming-js:
     build: piveau-consus-transforming-js
     logging:
