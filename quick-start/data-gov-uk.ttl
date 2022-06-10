@@ -1,0 +1,10 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://piveau.eu/id/catalogue/data-gov-uk>
+    a dcat:Catalog ;
+    dct:language <http://publications.europa.eu/resource/authority/language/ENG> ;
+    dct:title "data.gov.uk"@en ;
+    dct:description "Open Data Portal United Kingdom"@en ;
+    dct:type "dcat-ap"^^xsd:string .
