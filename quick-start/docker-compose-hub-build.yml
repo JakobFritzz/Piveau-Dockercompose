@@ -2,7 +2,7 @@ version: '3'
 
 services:
   piveau-hub-repo:
-    image: registry.gitlab.com/piveau/hub/piveau-hub-repo
+    build: piveau-hub-repo
     logging:
       options:
         max-size: "50m"
@@ -10,13 +10,17 @@ services:
       - 8081:8080
       - 8082:8085
     environment:
-      - PIVEAU_HUB_SEARCH_SERVICE={"enabled":true,"url":"piveau-hub-search","port":8080,"api_key":"please_change"}
-      - PIVEAU_HUB_API_KEY=please_change
+      - PIVEAU_HUB_BASE_URI=http://piveau.io/
+      - PIVEAU_TRIPLESTORE_CONFIG={"address":"http://virtuoso:8890", "username":"dba","password":"dba"}
+      - PIVEAU_HUB_SEARCH_SERVICE={"url":"piveau-hub-search","port":8080,"api_key":"bfd33c68-c2fe-428e-85dc-1cd3e5e2f1be"}
+      - PIVEAU_HUB_XML_DECLARATION=true
+      - PIVEAU_HUB_API_KEY=bfd33c68-c2fe-428e-85dc-1cd3e5e2f1be
+      - PIVEAU_HUB_ELASTICSEARCH_ADDRESS=http://elasticsearch:9200
       - PIVEAU_HUB_SHELL_CONFIG={"http":{},"telnet":{}}
       - JAVA_OPTS=-Xms1g -Xmx2g
 
   piveau-hub-search:
-    image: registry.gitlab.com/piveau/hub/piveau-hub-search
+    build: piveau-hub-search
     logging:
       options:
         max-size: "50m"
@@ -26,12 +30,12 @@ services:
     depends_on:
       - elasticsearch
     environment:
-      - PIVEAU_HUB_SEARCH_API_KEY=please_change
+      - PIVEAU_HUB_SEARCH_API_KEY=bfd33c68-c2fe-428e-85dc-1cd3e5e2f1be
       - PIVEAU_HUB_SEARCH_ES_CONFIG={"host":"elasticsearch","port":9200}
       - PIVEAU_HUB_SEARCH_GAZETTEER_CONFIG={"url":"http://doesnotmatter.eu"}
 
   piveau-hub-ui:
-    image: registry.gitlab.com/piveau/hub/piveau-hub-ui
+    build: piveau-hub-ui
     logging:
       options:
         max-size: "50m"
@@ -62,8 +66,6 @@ services:
     ports:
       - 9200:9200
       - 9300:9300
-    volumes:
-      - ./index:/usr/share/elasticsearch/data
 
   virtuoso:
     image:  openlink/virtuoso-opensource-7

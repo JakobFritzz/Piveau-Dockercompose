@@ -2,19 +2,19 @@ version: '3'
 
 services:
   piveau-consus-importing-rdf:
-    image: registry.gitlab.com/piveau/consus/piveau-consus-importing-ckan
+    build: piveau-consus-importing-rdf
     logging:
       options:
         max-size: "50m"
 
   piveau-consus-importing-ckan:
-    image: registry.gitlab.com/piveau/consus/piveau-consus-importing-ckan
+    build: piveau-consus-importing-ckan
     logging:
       options:
         max-size: "50m"
 
   piveau-consus-transforming-js:
-    image: registry.gitlab.com/piveau/consus/piveau-consus-transforming-js
+    build: piveau-consus-transforming-js
     logging:
       options:
         max-size: "50m"
@@ -22,16 +22,16 @@ services:
       - ./scripts:/usr/verticles/scripts
 
   piveau-consus-exporting-hub:
-    image: registry.gitlab.com/piveau/consus/piveau-consus-exporting-hub
+    build: piveau-consus-exporting-hub
     logging:
       options:
         max-size: "50m"
     environment:
-      - PIVEAU_HUB_APIKEY=please_change
+      - PIVEAU_HUB_APIKEY=yourapikey
       - PIVEAU_HUB_ADDRESS=http://localhost:8083
 
   piveau-consus-scheduling:
-    image: registry.gitlab.com/piveau/consus/piveau-consus-scheduling
+    build: piveau-consus-scheduling
     logging:
       options:
         max-size: "50m"
