@@ -27,7 +27,7 @@ services:
       options:
         max-size: "50m"
     environment:
-      - PIVEAU_HUB_APIKEY=please_change
+      - PIVEAU_HUB_APIKEY=yourRepoApiKey
       - PIVEAU_HUB_ADDRESS=http://localhost:8083
 
   piveau-consus-scheduling:
