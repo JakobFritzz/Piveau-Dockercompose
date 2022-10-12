@@ -70,6 +70,8 @@ services:
     logging:
       options:
         max-size: "50m"
+    environment:
+      - DBA_PASSWORD=dba
     ports:
       - 8890:8890
       - 1111:1111
