@@ -2,7 +2,7 @@ header:
   id: a6813dbb-c48e-4d43-923b-813c7c6ecb72
   name: govdata
   title: Harvesting - GovData
-  context: PIVEAU
+  context: piveau
   transport: payload
   version: "2.0.0"
 body:
