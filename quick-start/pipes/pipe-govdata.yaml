@@ -2,7 +2,7 @@ header:
   id: a6813dbb-c48e-4d43-923b-813c7c6ecb72
   name: govdata
   title: Harvesting - GovData
-  context: PIVEAU
+  context: piveau
   transport: payload
   version: "2.0.0"
 body:
@@ -16,6 +16,7 @@ body:
         config:
           address: https://www.govdata.de/ckan/catalog/catalog.rdf
           catalogue: govdata
+          preProcessing: true
     - header:
         name: piveau-consus-exporting-hub
         segmentNumber: 2

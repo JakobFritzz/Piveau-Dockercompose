@@ -2,7 +2,7 @@
 @prefix dc: <http://purl.org/dc/terms/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-<https://piveau.eu/id/catalogue/govdata>
+<http://piveau.io/id/catalogue/govdata>
   a dcat:Catalog ;
   dc:language <http://publications.europa.eu/resource/authority/language/DEU> ;
   dc:title "GovData"@de ;

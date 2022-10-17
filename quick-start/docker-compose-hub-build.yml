@@ -2,7 +2,7 @@ version: '3'
 
 services:
   piveau-hub-repo:
-    image: registry.gitlab.com/piveau/hub/piveau-hub-repo
+    build: piveau-hub-repo
     logging:
       options:
         max-size: "50m"
@@ -17,7 +17,7 @@ services:
       - JAVA_OPTS=-Xms300m -Xmx1g
 
   piveau-hub-search:
-    image: registry.gitlab.com/piveau/hub/piveau-hub-search
+    build: piveau-hub-search
     logging:
       options:
         max-size: "50m"
@@ -33,7 +33,7 @@ services:
       - JAVA_OPTS=-Xms300m -Xmx1g
 
   piveau-hub-ui:
-    image: registry.gitlab.com/piveau/hub/piveau-hub-ui
+    build: piveau-hub-ui
     logging:
       options:
         max-size: "50m"
