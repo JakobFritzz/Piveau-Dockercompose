@@ -31,6 +31,7 @@ services:
       - PIVEAU_HUB_SEARCH_ES_CONFIG={"host":"elasticsearch","port":9200}
       - PIVEAU_HUB_SEARCH_GAZETTEER_CONFIG={"url":"http://doesnotmatter.eu"}
       - JAVA_OPTS=-Xms300m -Xmx1g
+
   piveau-hub-ui:
     image: registry.gitlab.com/piveau/hub/piveau-hub-ui
     logging:
@@ -52,11 +53,6 @@ services:
     logging:
       options:
         max-size: "50m"
-    environment:
-      - bootstrap.memory_lock=true
-      - discovery.type=single-node
-      - xpack.security.enabled=false
-      - ES_JAVA_OPTS=-Xms2G -Xmx4G
     ulimits:
       memlock:
         soft: -1
@@ -64,6 +60,11 @@ services:
     ports:
       - 9200:9200
       - 9300:9300
+    environment:
+      - bootstrap.memory_lock=true
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - ES_JAVA_OPTS=-Xms2G -Xmx4G
     volumes:
       - ./index:/usr/share/elasticsearch/data
 
@@ -72,6 +73,9 @@ services:
     logging:
       options:
         max-size: "50m"
+    ports:
+      - 8890:8890
+      - 1111:1111
     environment:
       - DBA_PASSWORD=dba
       - VIRT_PARAMETERS_NUMBEROFBUFFERS=170000
@@ -79,8 +83,5 @@ services:
       - VIRT_PARAMETERS_SERVERTHREADS=100
       - VIRT_HTTPSERVER_SERVERTHREADS=100
       - VIRT_HTTPSERVER_MAXCLIENTCONNECTIONS=100
-    ports:
-      - 8890:8890
-      - 1111:1111
     volumes:
       - ./data:/database

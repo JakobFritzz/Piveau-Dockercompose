@@ -6,18 +6,24 @@ services:
     logging:
       options:
         max-size: "50m"
+    environment:
+      - JAVA_OPTS=-Xms200m -Xmx500m
 
   piveau-consus-importing-ckan:
     build: piveau-consus-importing-ckan
     logging:
       options:
         max-size: "50m"
+    environment:
+      - JAVA_OPTS=-Xms100m -Xmx200m
 
   piveau-consus-transforming-js:
     build: piveau-consus-transforming-js
     logging:
       options:
         max-size: "50m"
+    environment:
+      - JAVA_OPTS=-Xms200m -Xmx500m
     volumes:
       - ./scripts:/usr/verticles/scripts
 
@@ -27,7 +33,8 @@ services:
       options:
         max-size: "50m"
     environment:
-      - PIVEAU_HUB_APIKEY=yourapikey
+      - JAVA_OPTS=-Xms200m -Xmx1g
+      - PIVEAU_HUB_APIKEY=yourRepoApiKey
 
   piveau-consus-scheduling:
     build: piveau-consus-scheduling
@@ -39,6 +46,7 @@ services:
       - '8095:8085'
       - '5000:5000'
     environment:
+      - JAVA_OPTS=-Xms100m -Xmx200m
       - PIVEAU_SHELL_CONFIG={"telnet":{},"http":{}}
     volumes:
       - ./pipes:/usr/verticles/pipes

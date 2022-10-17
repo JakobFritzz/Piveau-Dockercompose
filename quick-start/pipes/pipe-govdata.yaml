@@ -16,6 +16,7 @@ body:
         config:
           address: https://www.govdata.de/ckan/catalog/catalog.rdf
           catalogue: govdata
+          preProcessing: true
     - header:
         name: piveau-consus-exporting-hub
         segmentNumber: 2
