@@ -100,15 +100,11 @@ services:
 
 
   piveau-metrics-annotator:
-    image: --
+    image: registry.gitlab.com/piveau/metrics/piveau-metrics-annotator:2.0.4
     logging:
       options:
         max-size: "50m"
     environment:
-      - PIVEAU_HUB_SEARCH_SERVICE={"enabled":true,"url":"piveau-hub-search","port":8080,"api_key":"yourSearchApiKey"}
-      - PIVEAU_HUB_API_KEY=yourRepoApiKey
-      - PIVEAU_HUB_SHELL_CONFIG={"http":{},"telnet":{}}
-      - PIVEAU_TRIPLESTORE_CONFIG={"address":"http://virtuoso:8890","clearGeoDataCatalogues":["*"]}
       - JAVA_OPTS=-Xms1g -Xmx2g
 
 
