@@ -2,7 +2,7 @@ version: '3'
 
 services:
   piveau-hub-repo:
-    image: registry.gitlab.com/piveau/hub/piveau-hub-repo:3.0.9
+    image: registry.gitlab.com/piveau/hub/piveau-hub-repo:3.0.23
     container_name: piveau-hub-repo
     logging:
       options:

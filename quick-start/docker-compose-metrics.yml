@@ -11,11 +11,14 @@ services:
       - 8085:8085
       - 5002:5000
     environment:
-      - PIVEAU_HUB_SEARCH_SERVICE={"enabled":true,"url":"piveau-hub-search","port":8080,"api_key":"yourSearchApiKey"}
       - PIVEAU_HUB_API_KEY=yourRepoApiKey
       - PIVEAU_HUB_SHELL_CONFIG={"http":{},"telnet":{}}
       - PIVEAU_TRIPLESTORE_CONFIG={"address":"http://virtuoso:8890","clearGeoDataCatalogues":["*"]}
+      - PIVEAU_HUB_VALIDATOR={"enabled":true,"metricsPipeName":"metrics","history":false}
+      - PIVEAU_HUB_SEARCH_SERVICE={"enabled":false}
       - JAVA_OPTS=-Xms1g -Xmx2g
+    volumes:
+      - ./pipes:/usr/verticles/pipes
 
   piveau-metrics-validating-shacl:
     image: registry.gitlab.com/piveau/metrics/piveau-metrics-validating-shacl:4.2.2
@@ -124,10 +127,6 @@ services:
       options:
         max-size: "50m"
     environment:
-      - PIVEAU_HUB_SEARCH_SERVICE={"enabled":true,"url":"piveau-hub-search","port":8080,"api_key":"yourSearchApiKey"}
-      - PIVEAU_HUB_API_KEY=yourRepoApiKey
-      - PIVEAU_HUB_SHELL_CONFIG={"http":{},"telnet":{}}
-      - PIVEAU_TRIPLESTORE_CONFIG={"address":"http://virtuoso:8890","clearGeoDataCatalogues":["*"]}
       - JAVA_OPTS=-Xms1g -Xmx2g
 
 
