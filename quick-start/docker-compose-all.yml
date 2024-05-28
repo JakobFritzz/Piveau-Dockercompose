@@ -1,0 +1,235 @@
+version: '3'
+
+services:
+  piveau-hub-repo:
+    image: dockerhub.fokus.fraunhofer.de:5000/piveau/hub/piveau-hub-repo:latest
+    logging:
+      options:
+        max-size: "50m"
+    ports:
+      - 8081:8080
+      - 8085:8085
+      - 5002:5000
+    environment:
+      - PIVEAU_HUB_API_KEY=yourRepoApiKey
+      - PIVEAU_HUB_SHELL_CONFIG={"http":{},"telnet":{}}
+      - PIVEAU_TRIPLESTORE_CONFIG={"address":"http://virtuoso:8890","clearGeoDataCatalogues":["*"]}
+      - PIVEAU_HUB_VALIDATOR={"enabled":true,"metricsPipeName":"metrics","history":false}
+      - PIVEAU_HUB_SEARCH_SERVICE={"enabled":true,"url":"piveau-hub-search","port":8080,"api_key":"yourSearchApiKey"}
+      - JAVA_OPTS=-Xms1g -Xmx2g
+    volumes:
+      - ./pipes:/usr/verticles/pipes
+
+
+  piveau-hub-search:
+    image: registry.gitlab.com/piveau/hub/piveau-hub-search:5.0.3
+    container_name: piveau-hub-search
+    logging:
+      options:
+        max-size: "50m"
+    ports:
+      - 8084:8080
+      - 8086:8081
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    environment:
+      - PIVEAU_HUB_SEARCH_API_KEY=yourSearchApiKey
+      - PIVEAU_HUB_SEARCH_ES_CONFIG={"host":"elasticsearch","port":9200}
+      - PIVEAU_HUB_SEARCH_GAZETTEER_CONFIG={"url":"http://doesnotmatter.eu"}
+      - JAVA_OPTS=-Xms1g -Xmx2g
+
+  piveau-hub-ui:
+    image: registry.gitlab.com/piveau/hub/piveau-hub-ui:v1.15.9
+    container_name: piveau-hub-ui
+    logging:
+      options:
+        max-size: "50m"
+    ports:
+      - 8080:8080
+    environment:
+      - VUE_APP_TITLE=piveau
+      - VUE_APP_API_BASE_URL=http://localhost:8084/
+      - VUE_APP_API_HUB_URL=http://localhost:8081/
+      - VUE_APP_API_UPLOAD_BASE_URL=http://localhost:8088/
+      - VUE_APP_KEYCLOAK_ENABLE_LOGIN=false
+      - VUE_APP_KEYCLOAK_REALM=piveau
+      - VUE_APP_KEYCLOAK_URL=https://keycloak-piveau.apps.osc.fokus.fraunhofer.de/auth
+      - VUE_APP_ROUTER_OPTIONS_BASE=/
+      - VUE_APP_API_QUALITY_BASE_URL=http://localhost:8185/
+
+###########
+#### CONSUS
+###########
+
+  piveau-consus-importing-rdf:
+    image: registry.gitlab.com/piveau/consus/piveau-consus-importing-rdf:1.7.7
+    logging:
+      options:
+        max-size: "50m"
+    environment:
+      - JAVA_OPTS=-Xms200m -Xmx500m
+
+  piveau-consus-importing-ckan:
+    image: registry.gitlab.com/piveau/consus/piveau-consus-importing-ckan:1.2.3
+    logging:
+      options:
+        max-size: "50m"
+    environment:
+      - JAVA_OPTS=-Xms100m -Xmx200m
+
+  piveau-consus-transforming-js:
+    image: registry.gitlab.com/piveau/consus/piveau-consus-transforming-js:3.2.3
+    logging:
+      options:
+        max-size: "50m"
+    environment:
+      - JAVA_OPTS=-Xms200m -Xmx500m
+    volumes:
+      - ./scripts:/usr/verticles/scripts
+
+  piveau-consus-exporting-hub:
+    image: registry.gitlab.com/piveau/consus/piveau-consus-exporting-hub:5.0.0
+    logging:
+      options:
+        max-size: "50m"
+    environment:
+      - JAVA_OPTS=-Xms200m -Xmx1g
+      - PIVEAU_HUB_APIKEY=yourRepoApiKey
+      - OTEL_SDK_DISABLED=true
+      - PIVEAU_PIPE_LOG_LEVEL=trace
+      - PIVEAU_LOG_LEVEL=TRACE
+
+
+  piveau-consus-scheduling:
+    image: registry.gitlab.com/piveau/consus/piveau-consus-scheduling:2.1.2
+    logging:
+      options:
+        max-size: "50m"
+    ports:
+      - '8090:8080'
+      - '8095:8085'
+      - '5000:5000'
+    environment:
+      - JAVA_OPTS=-Xms100m -Xmx200m
+      - PIVEAU_SHELL_CONFIG={"telnet":{},"http":{}}
+    volumes:
+      - ./pipes:/usr/verticles/pipes
+
+  ############
+  #### METRICS
+  ############
+
+  piveau-metrics-validating-shacl:
+    image: registry.gitlab.com/piveau/metrics/piveau-metrics-validating-shacl:4.2.4
+    logging:
+      options:
+        max-size: "50m"
+    ports:
+      - 8181:8080
+    environment:
+      - JAVA_OPTS=-Xms1g -Xmx2g
+      - PIVEAU_LOG_LEVEL=trace
+      - PIVEAU_PIPE_LOG_LEVEL=TRACE
+
+  piveau-metrics-cache:
+    image: registry.gitlab.com/piveau/metrics/piveau-metrics-cache:5.6.8
+    logging:
+      options:
+        max-size: "50m"
+    ports:
+      - 8185:8080
+    environment:
+      - MONGODB_CONNECTION=mongodb://mongodb:27017
+      - CACHE_APIKEY=yourCacheApiKey
+      - PIVEAU_TRIPLESTORE_CONFIG={"address":"http://virtuoso:8890", "password":"dba"}
+      - CACHE_CORS_DOMAINS=["localhost"]
+      - JAVA_OPTS=-Xms1g -Xmx2g
+
+  piveau-metrics-annotator:
+    image: registry.gitlab.com/piveau/metrics/piveau-metrics-annotator:2.0.6
+    logging:
+      options:
+        max-size: "50m"
+    environment:
+      - JAVA_OPTS=-Xms1g -Xmx2g
+      - PIVEAU_LOG_LEVEL=trace
+      - PIVEAU_PIPE_LOG_LEVEL=TRACE
+
+  piveau-metrics-accessibility:
+    image: registry.gitlab.com/piveau/metrics/piveau-metrics-accessibility:2.0.4
+    logging:
+      options:
+        max-size: "50m"
+    environment:
+      - PIVEAU_ACCESSIBILITY_PERSISTENCE_CONFIG={"mongoDbClient":{"connection_string":"mongodb://mongodb:27017"},"collection":"datasets"}
+      - JAVA_OPTS=-Xms1g -Xmx2g
+      - PIVEAU_LOG_LEVEL=trace
+      - PIVEAU_PIPE_LOG_LEVEL=TRACE
+
+  piveau-metrics-score:
+    image: registry.gitlab.com/piveau/metrics/piveau-metrics-score:3.1.6
+    logging:
+      options:
+        max-size: "50m"
+    environment:
+      - JAVA_OPTS=-Xms1g -Xmx2g
+      - PIVEAU_LOG_LEVEL=trace
+      - PIVEAU_PIPE_LOG_LEVEL=TRACE
+
+  virtuoso:
+    image:  openlink/virtuoso-opensource-7:7.2.9
+    container_name: virtuoso
+    logging:
+      options:
+        max-size: "50m"
+    ports:
+      - 8890:8890
+      - 1111:1111
+    environment:
+      - DBA_PASSWORD=dba
+      - VIRT_PARAMETERS_NUMBEROFBUFFERS=170000
+      - VIRT_PARAMETERS_MAXDIRTYBUFFERS=130000
+      - VIRT_PARAMETERS_SERVERTHREADS=100
+      - VIRT_HTTPSERVER_SERVERTHREADS=100
+      - VIRT_HTTPSERVER_MAXCLIENTCONNECTIONS=100
+    volumes:
+      - virtuoso-data:/database
+
+  mongodb:
+    image: mongo:6.0.13
+    volumes:
+      - mongodb-data:/data/db
+
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.2
+    container_name: elasticsearch
+    logging:
+      options:
+        max-size: "50m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    healthcheck:
+      test: curl -s -f http://elasticsearch:9200/_cat/health >/dev/null || exit 1
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    ports:
+      - 9200:9200
+      - 9300:9300
+    environment:
+      - bootstrap.memory_lock=true
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - ES_JAVA_OPTS=-Xms2G -Xmx4G
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+
+
+volumes:
+  virtuoso-data:
+  mongodb-data:
+  elasticsearch-data:
