@@ -80,7 +80,7 @@ services:
       - elasticsearch-data:/usr/share/elasticsearch/data
 
   virtuoso:
-    image:  openlink/virtuoso-opensource-7:7.2.9
+    image:  openlink/virtuoso-opensource-7:7.2.12
     container_name: virtuoso
     logging:
       options:

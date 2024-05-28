@@ -20,8 +20,22 @@ services:
     volumes:
       - ./pipes:/usr/verticles/pipes
 
+
+  piveau-consus-exporting-hub:
+    image: registry.gitlab.com/piveau/consus/piveau-consus-exporting-hub:5.0.0
+    logging:
+      options:
+        max-size: "50m"
+    environment:
+      - JAVA_OPTS=-Xms200m -Xmx1g
+      - PIVEAU_HUB_APIKEY=yourRepoApiKey
+      - OTEL_SDK_DISABLED=true
+      - PIVEAU_PIPE_LOG_LEVEL=trace
+      - PIVEAU_LOG_LEVEL=TRACE
+
+
   piveau-metrics-validating-shacl:
-    image: registry.gitlab.com/piveau/metrics/piveau-metrics-validating-shacl:4.2.2
+    image: registry.gitlab.com/piveau/metrics/piveau-metrics-validating-shacl:4.2.4
     logging:
       options:
         max-size: "50m"
@@ -29,6 +43,8 @@ services:
       - 8181:8080
     environment:
       - JAVA_OPTS=-Xms1g -Xmx2g
+      - PIVEAU_LOG_LEVEL=trace
+      - PIVEAU_PIPE_LOG_LEVEL=TRACE
 
 # no public image
 #  piveau-metrics-validating-shacl-ui:
@@ -120,6 +136,16 @@ services:
       - PIVEAU_ACCESSIBILITY_PERSISTENCE_CONFIG={"mongoDbClient":{"connection_string":"mongodb://mongodb:27017"},"collection":"datasets"}
       - JAVA_OPTS=-Xms1g -Xmx2g
 
+  piveau-metrics-accessibility:
+    image: registry.gitlab.com/piveau/metrics/piveau-metrics-accessibility:2.0.4
+    logging:
+      options:
+        max-size: "50m"
+    environment:
+      - PIVEAU_ACCESSIBILITY_PERSISTENCE_CONFIG={"mongoDbClient":{"connection_string":"mongodb://mongodb:27017"},"collection":"datasets"}
+      - JAVA_OPTS=-Xms1g -Xmx2g
+      - PIVEAU_LOG_LEVEL=trace
+      - PIVEAU_PIPE_LOG_LEVEL=TRACE
 
   piveau-metrics-score:
     image: registry.gitlab.com/piveau/metrics/piveau-metrics-score:3.1.6
@@ -128,21 +154,22 @@ services:
         max-size: "50m"
     environment:
       - JAVA_OPTS=-Xms1g -Xmx2g
+      - PIVEAU_LOG_LEVEL=trace
+      - PIVEAU_PIPE_LOG_LEVEL=TRACE
 
 
 
 
 
-
-  piveau-metrics-data-format-linter:
-    image: registry.gitlab.com/piveau/metrics/piveau-metrics-data-format-linter:1.0.2
-    logging:
-      options:
-        max-size: "50m"
-    environment:
-      - JAVA_OPTS=-Xms1g -Xmx2g
-
-
+#  piveau-metrics-data-format-linter:
+#    image: registry.gitlab.com/piveau/metrics/piveau-metrics-data-format-linter:1.0.2
+#    logging:
+#      options:
+#        max-size: "50m"
+#    environment:
+#      - JAVA_OPTS=-Xms1g -Xmx2g
+#
+#
 
 
   virtuoso:
