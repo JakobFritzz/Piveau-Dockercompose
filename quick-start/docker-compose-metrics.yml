@@ -128,15 +128,6 @@ services:
 
 
   piveau-metrics-accessibility:
-    image: registry.gitlab.com/piveau/metrics/piveau-metrics-accessibility:2.0.2
-    logging:
-      options:
-        max-size: "50m"
-    environment:
-      - PIVEAU_ACCESSIBILITY_PERSISTENCE_CONFIG={"mongoDbClient":{"connection_string":"mongodb://mongodb:27017"},"collection":"datasets"}
-      - JAVA_OPTS=-Xms1g -Xmx2g
-
-  piveau-metrics-accessibility:
     image: registry.gitlab.com/piveau/metrics/piveau-metrics-accessibility:2.0.4
     logging:
       options:
