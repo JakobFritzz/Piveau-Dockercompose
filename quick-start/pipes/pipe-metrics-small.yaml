@@ -1,0 +1,37 @@
+header:
+  id: eb5fec80-1861-465e-93e0-7974bc224070
+  name: metrics-small
+  title: System Metrics
+  context: piveau
+  transport: payload
+  version: "2.0.0"
+body:
+  segments:
+    - header:
+        name: piveau-metrics-validating-shacl
+        segmentNumber: 1
+        title: Metrics SHACL validation
+        processed: false
+      body:
+        config: {}
+    - header:
+        name: piveau-metrics-annotator
+        segmentNumber: 2
+        title: Metrics annotations
+        processed: false
+      body:
+        config: {}
+    - header:
+        name: piveau-metrics-score
+        segmentNumber: 3
+        title: Metrics scoring
+        processed: false
+      body:
+        config: {}
+    - header:
+        name: piveau-consus-exporting-hub
+        segmentNumber: 4
+        title: Exporting hub
+        processed: false
+      body:
+        config: {}
