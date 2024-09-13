@@ -8,6 +8,13 @@ header:
 body:
   segments:
     - header:
+        name: piveau-metrics-validating-shacl
+        segmentNumber: 1
+        title: Metrics SHACL validation
+        processed: false
+      body:
+        config: {}
+    - header:
         name: piveau-metrics-annotator
         segmentNumber: 2
         title: Metrics annotations
