@@ -1,8 +1,8 @@
-version: '3'
+
 
 services:
   piveau-hub-repo:
-    image: registry.gitlab.com/piveau/hub/piveau-hub-repo:3.0.23
+    image: registry.gitlab.com/piveau/hub/piveau-hub-repo:3.2.19
     container_name: piveau-hub-repo
     logging:
       options:
@@ -19,7 +19,7 @@ services:
       - JAVA_OPTS=-Xms1g -Xmx2g
 
   piveau-hub-search:
-    image: registry.gitlab.com/piveau/hub/piveau-hub-search:5.0.3
+    image: registry.gitlab.com/piveau/hub/piveau-hub-search:5.1.8
     container_name: piveau-hub-search
     logging:
       options:
@@ -37,7 +37,7 @@ services:
       - JAVA_OPTS=-Xms1g -Xmx2g
 
   piveau-hub-ui:
-    image: registry.gitlab.com/piveau/hub/piveau-hub-ui:v1.15.9
+    image: registry.gitlab.com/piveau/hub/piveau-hub-ui:v1.16.2
     container_name: piveau-hub-ui
     logging:
       options:
@@ -45,16 +45,16 @@ services:
     ports:
       - 8080:8080
     environment:
-      - VUE_APP_TITLE=piveau
-      - VUE_APP_API_BASE_URL=http://localhost:8084/
-      - VUE_APP_API_UPLOAD_BASE_URL=http://localhost:8088/
-      - VUE_APP_KEYCLOAK_ENABLE_LOGIN=false
-      - VUE_APP_KEYCLOAK_REALM=piveau
-      - VUE_APP_KEYCLOAK_URL=https://keycloak-piveau.apps.osc.fokus.fraunhofer.de/auth
-      - VUE_APP_ROUTER_OPTIONS_BASE=/
+      - VITE_METADATA_TITLE=My title
+      - VITE_API_BASE_URL=http://localhost:8084/
+      - VITE_API_HUB_URL=http://localhost:8081/
+      - VITE_AUTHENTICATION_KEYCLOAK_REALM=vanilla
+      - VITE_AUTHENTICATION_KEYCLOAK_URL=https://demo.piveau.io/auth
+      - VITE_AUTHENTICATION_KEYCLOAK_CLIENT_ID=piveau-hub-ui
+      - VITE_ROUTING_ROUTER_OPTIONS_BASE=/
 
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.2
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.3
     container_name: elasticsearch
     logging:
       options:
@@ -80,7 +80,7 @@ services:
       - elasticsearch-data:/usr/share/elasticsearch/data
 
   virtuoso:
-    image:  openlink/virtuoso-opensource-7:7.2.12
+    image:  openlink/virtuoso-opensource-7:7.2.13-alpine
     container_name: virtuoso
     logging:
       options:

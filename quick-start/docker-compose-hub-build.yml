@@ -1,4 +1,4 @@
-version: '3'
+
 
 services:
   piveau-hub-repo:
@@ -40,13 +40,13 @@ services:
     ports:
       - 8080:8080
     environment:
-      - VUE_APP_TITLE=Piveau
-      - VUE_APP_API_BASE_URL=http://localhost:8083/
-      - VUE_APP_API_UPLOAD_BASE_URL=http://localhost:8081/
-      - VUE_APP_API_AUTH_TOKEN=
-      - VUE_APP_KEYCLOAK_ENABLE_LOGIN=false
-      - VUE_APP_USE_AUTH_SERVICE=false
-      - VUE_APP_ROUTER_OPTIONS_BASE=/
+      - VITE_METADATA_TITLE=My title
+      - VITE_API_BASE_URL=http://localhost:8084/
+      - VITE_API_HUB_URL=http://localhost:8081/
+      - VITE_AUTHENTICATION_KEYCLOAK_REALM=vanilla
+      - VITE_AUTHENTICATION_KEYCLOAK_URL=https://demo.piveau.io/auth
+      - VITE_AUTHENTICATION_KEYCLOAK_CLIENT_ID=piveau-hub-ui
+      - VITE_ROUTING_ROUTER_OPTIONS_BASE=/
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.17.2
@@ -69,7 +69,7 @@ services:
       - ./index:/usr/share/elasticsearch/data
 
   virtuoso:
-    image:  openlink/virtuoso-opensource-7:7.2.9
+    image:  openlink/virtuoso-opensource-7:7.2.13-alpine
     logging:
       options:
         max-size: "50m"

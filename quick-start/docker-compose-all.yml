@@ -1,4 +1,3 @@
-version: '3'
 
 services:
   piveau-hub-repo:
@@ -22,7 +21,7 @@ services:
 
 
   piveau-hub-search:
-    image: registry.gitlab.com/piveau/hub/piveau-hub-search:5.0.3
+    image: registry.gitlab.com/piveau/hub/piveau-hub-search:5.1.8
     container_name: piveau-hub-search
     logging:
       options:
@@ -40,7 +39,7 @@ services:
       - JAVA_OPTS=-Xms1g -Xmx2g
 
   piveau-hub-ui:
-    image: registry.gitlab.com/piveau/hub/piveau-hub-ui:v1.15.9
+    image: registry.gitlab.com/piveau/hub/piveau-hub-ui:v1.16.2
     container_name: piveau-hub-ui
     logging:
       options:
@@ -48,22 +47,20 @@ services:
     ports:
       - 8080:8080
     environment:
-      - VUE_APP_TITLE=piveau
-      - VUE_APP_API_BASE_URL=http://localhost:8084/
-      - VUE_APP_API_HUB_URL=http://localhost:8081/
-      - VUE_APP_API_UPLOAD_BASE_URL=http://localhost:8088/
-      - VUE_APP_KEYCLOAK_ENABLE_LOGIN=false
-      - VUE_APP_KEYCLOAK_REALM=piveau
-      - VUE_APP_KEYCLOAK_URL=https://keycloak-piveau.apps.osc.fokus.fraunhofer.de/auth
-      - VUE_APP_ROUTER_OPTIONS_BASE=/
-      - VUE_APP_API_QUALITY_BASE_URL=http://localhost:8185/
+      - VITE_METADATA_TITLE=My title
+      - VITE_API_BASE_URL=http://localhost:8084/
+      - VITE_API_HUB_URL=http://localhost:8081/
+      - VITE_AUTHENTICATION_KEYCLOAK_REALM=vanilla
+      - VITE_AUTHENTICATION_KEYCLOAK_URL=https://demo.piveau.io/auth
+      - VITE_AUTHENTICATION_KEYCLOAK_CLIENT_ID=piveau-hub-ui
+      - VITE_ROUTING_ROUTER_OPTIONS_BASE=/
 
 ###########
 #### CONSUS
 ###########
 
   piveau-consus-importing-rdf:
-    image: registry.gitlab.com/piveau/consus/piveau-consus-importing-rdf:1.7.7
+    image: registry.gitlab.com/piveau/consus/piveau-consus-importing-rdf:1.8.9
     logging:
       options:
         max-size: "50m"
@@ -71,7 +68,7 @@ services:
       - JAVA_OPTS=-Xms200m -Xmx500m
 
   piveau-consus-importing-ckan:
-    image: registry.gitlab.com/piveau/consus/piveau-consus-importing-ckan:1.2.3
+    image: registry.gitlab.com/piveau/consus/piveau-consus-importing-ckan:1.2.7
     logging:
       options:
         max-size: "50m"
@@ -79,7 +76,7 @@ services:
       - JAVA_OPTS=-Xms100m -Xmx200m
 
   piveau-consus-transforming-js:
-    image: registry.gitlab.com/piveau/consus/piveau-consus-transforming-js:3.2.3
+    image: registry.gitlab.com/piveau/consus/piveau-consus-transforming-js:4.0.1
     logging:
       options:
         max-size: "50m"
@@ -89,7 +86,7 @@ services:
       - ./scripts:/usr/verticles/scripts
 
   piveau-consus-exporting-hub:
-    image: registry.gitlab.com/piveau/consus/piveau-consus-exporting-hub:5.0.0
+    image: registry.gitlab.com/piveau/consus/piveau-consus-exporting-hub:5.0.2
     logging:
       options:
         max-size: "50m"
@@ -102,7 +99,7 @@ services:
 
 
   piveau-consus-scheduling:
-    image: registry.gitlab.com/piveau/consus/piveau-consus-scheduling:2.1.2
+    image: registry.gitlab.com/piveau/consus/piveau-consus-scheduling:3.0.1
     logging:
       options:
         max-size: "50m"
@@ -133,7 +130,7 @@ services:
       - PIVEAU_PIPE_LOG_LEVEL=TRACE
 
   piveau-metrics-cache:
-    image: registry.gitlab.com/piveau/metrics/piveau-metrics-cache:5.6.8
+    image: registry.gitlab.com/piveau/metrics/piveau-metrics-cache:5.6.11
     logging:
       options:
         max-size: "50m"
@@ -147,7 +144,7 @@ services:
       - JAVA_OPTS=-Xms1g -Xmx2g
 
   piveau-metrics-annotator:
-    image: registry.gitlab.com/piveau/metrics/piveau-metrics-annotator:2.0.6
+    image: registry.gitlab.com/piveau/metrics/piveau-metrics-annotator:2.0.7
     logging:
       options:
         max-size: "50m"
@@ -157,7 +154,7 @@ services:
       - PIVEAU_PIPE_LOG_LEVEL=TRACE
 
   piveau-metrics-accessibility:
-    image: registry.gitlab.com/piveau/metrics/piveau-metrics-accessibility:2.0.4
+    image: registry.gitlab.com/piveau/metrics/piveau-metrics-accessibility:2.0.7
     logging:
       options:
         max-size: "50m"
@@ -168,7 +165,7 @@ services:
       - PIVEAU_PIPE_LOG_LEVEL=TRACE
 
   piveau-metrics-score:
-    image: registry.gitlab.com/piveau/metrics/piveau-metrics-score:3.1.6
+    image: registry.gitlab.com/piveau/metrics/piveau-metrics-score:3.2.0
     logging:
       options:
         max-size: "50m"
@@ -178,7 +175,7 @@ services:
       - PIVEAU_PIPE_LOG_LEVEL=TRACE
 
   virtuoso:
-    image:  openlink/virtuoso-opensource-7:7.2.9
+    image:  openlink/virtuoso-opensource-7:7.2.13-alpine
     container_name: virtuoso
     logging:
       options:
