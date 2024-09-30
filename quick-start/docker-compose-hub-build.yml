@@ -22,8 +22,8 @@ services:
       options:
         max-size: "50m"
     ports:
-      - 8083:8080
-      - 8084:8081
+      - 8084:8080
+      - 8086:8081
     depends_on:
       - elasticsearch
     environment:
@@ -49,7 +49,7 @@ services:
       - VITE_ROUTING_ROUTER_OPTIONS_BASE=/
 
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.2
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.3
     logging:
       options:
         max-size: "50m"
