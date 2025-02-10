@@ -7,6 +7,12 @@ services:
         max-size: "50m"
     environment:
       - JAVA_OPTS=-Xms200m -Xmx500m
+      - OTEL_EXPORTER=none
+      - OTEL_METRICS_EXPORTER=none
+      - OTEL_TRACES_EXPORTER=none
+      - OTEL_LOGS_EXPORTER=none
+      - OTEL_SERVICE_NAME=none
+
 
   piveau-consus-importing-ckan:
     image: registry.gitlab.com/piveau/consus/piveau-consus-importing-ckan:1.2.7
@@ -34,6 +40,7 @@ services:
     environment:
       - JAVA_OPTS=-Xms200m -Xmx1g
       - PIVEAU_HUB_APIKEY=yourRepoApiKey
+
 
   piveau-consus-scheduling:
     image: registry.gitlab.com/piveau/consus/piveau-consus-scheduling:3.0.1

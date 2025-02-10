@@ -1,0 +1,23 @@
+header:
+  id: 12345678-aaaa-bbbb-cccc-123456789abc
+  name: mobilitydcatap
+  title: Harvesting - mobilityDCAT-AP
+  context: piveau
+  transport: payload
+  version: "2.0.0"
+body:
+  segments:
+    - header:
+        name: piveau-consus-importing-rdf
+        segmentNumber: 1
+        title: Importing RDF
+      body:
+        config:
+          address:  http://ki-allianz.dmz.teco.edu:8000/dataset.xml
+          catalogue: mobilityDCAT
+          preProcessing: true
+    - header:
+        name: piveau-consus-exporting-hub
+        segmentNumber: 2
+        title: Exporting hub
+      body: {}

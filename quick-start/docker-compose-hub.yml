@@ -1,5 +1,3 @@
-
-
 services:
   piveau-hub-repo:
     image: registry.gitlab.com/piveau/hub/piveau-hub-repo:3.2.19
@@ -12,12 +10,12 @@ services:
       - 8085:8085
       - 5002:5000
     environment:
-      - PIVEAU_HUB_SEARCH_SERVICE={"enabled":true,"url":"piveau-hub-search","port":8080,"api_key":"yourSearchApiKey"}
       - PIVEAU_HUB_API_KEY=yourRepoApiKey
       - PIVEAU_HUB_SHELL_CONFIG={"http":{},"telnet":{}}
       - PIVEAU_TRIPLESTORE_CONFIG={"address":"http://virtuoso:8890","clearGeoDataCatalogues":["*"]}
+      - PIVEAU_HUB_SEARCH_SERVICE={"enabled":true,"url":"piveau-hub-search","port":8080,"api_key":"yourSearchApiKey"}
       - JAVA_OPTS=-Xms1g -Xmx2g
-
+      
   piveau-hub-search:
     image: registry.gitlab.com/piveau/hub/piveau-hub-search:5.1.8
     container_name: piveau-hub-search
@@ -37,7 +35,8 @@ services:
       - JAVA_OPTS=-Xms1g -Xmx2g
 
   piveau-hub-ui:
-    image: registry.gitlab.com/piveau/hub/piveau-hub-ui:v1.16.2
+    build:
+      context: ../../../ky_piveau/piveau-hub-ui
     container_name: piveau-hub-ui
     logging:
       options:
@@ -46,13 +45,13 @@ services:
       - 8080:8080
     environment:
       - VITE_METADATA_TITLE=My title
-      - VITE_API_BASE_URL=http://localhost:8084/
-      - VITE_API_HUB_URL=http://localhost:8081/
+      - VITE_API_BASE_URL=http://ki-allianz.dmz.teco.edu:8084/
+      - VITE_API_HUB_URL=http://ki-allianz.dmz.teco.edu:8081/
       - VITE_AUTHENTICATION_KEYCLOAK_REALM=vanilla
       - VITE_AUTHENTICATION_KEYCLOAK_URL=https://demo.piveau.io/auth
       - VITE_AUTHENTICATION_KEYCLOAK_CLIENT_ID=piveau-hub-ui
       - VITE_ROUTING_ROUTER_OPTIONS_BASE=/
-
+      
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.17.3
     container_name: elasticsearch

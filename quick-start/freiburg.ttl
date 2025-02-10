@@ -1,0 +1,12 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dc: <http://purl.org/dc/terms/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://piveau.io/id/catalogue/govdata>
+  a dcat:Catalog ;
+  dc:language <http://publications.europa.eu/resource/authority/language/DEU> ;
+  dc:title "Datenraum-Freiburg"@de ;
+  dc:title "Dataspace-Freiburg"@en ;
+  dc:description "Datenraum der Stadt Freiburg"@de ;
+  dc:description "Dataspace of the City Freiburg"@en ;
+  dc:type "dcat-ap"^^xsd:string .

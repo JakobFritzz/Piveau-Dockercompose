@@ -1,0 +1,25 @@
+header:
+  id: se-nap-pipe
+  name: SE-NAP-Pipe
+  title: Pipe für SE-NAP-Datensätze
+  context: piveau
+  transport: payload
+  version: "2.0.0"
+body:
+  segments:
+    - header:
+        name: piveau-consus-importing-rdf
+        segmentNumber: 1
+        title: Importing RDF
+        processed: false
+      body:
+        config:
+          address: https://raw.githubusercontent.com/mobilityDCAT-AP/mobilityDCAT-AP/gh-pages/releases/examples/SE%20NAP_dataset_expressed%20in%20mobilityDCAT-AP_minimum%20population_240205.ttl
+          catalogue: mobilityDCAT
+          preProcessing: true
+    - header:
+        name: piveau-consus-exporting-hub
+        segmentNumber: 2
+        title: Exporting hub
+        processed: false
+      body: {}

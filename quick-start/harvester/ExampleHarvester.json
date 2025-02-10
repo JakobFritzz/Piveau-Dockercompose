@@ -1,0 +1,11 @@
+{
+    "name": "ExampleHarvester",
+    "active": true,
+    "endpoint": "https://repo.piveau.datenraum-dev.freiburg.de/datasets?hydra=true&valueType=metadata&locale=de",
+    "format": "xml",
+    "language": "en",
+    "validation_level": "shacl",
+    "hub_catalogue_id": "example-catalog",
+    "interval": 3600
+  }
+  

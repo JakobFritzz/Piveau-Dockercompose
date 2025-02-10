@@ -1,0 +1,6 @@
+{
+    "name": "SE-NAP-Pipe",
+    "description": "Trigger for SE-NAP Dataset Pipeline",
+    "pipe": "SE-NAP-Pipe",
+    "type": ["manual"]
+  }

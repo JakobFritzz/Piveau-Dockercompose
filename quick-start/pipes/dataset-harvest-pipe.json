@@ -1,0 +1,39 @@
+{   
+    "header": {
+        "id": "se-nap-pipe",
+        "name": "SE-NAP-Pipe",
+        "title": "Pipe für SE-NAP-Datensätze",
+        "context": "https://piveau.io",
+        "transport": "payload",
+        "version": "2.0.0"
+    },
+    "body": {
+      "segments": [
+        {
+          "header": {
+            "name": "piveau-consus-importing-rdf",
+            "segmentNumber": 1,
+            "title": "RDF Importer",
+            "processed": false
+          },
+          "body": {
+            "config": {
+              "address": "https://raw.githubusercontent.com/mobilityDCAT-AP/mobilityDCAT-AP/refs/heads/gh-pages/releases/examples/SE%20NAP_dataset_expressed%20in%20mobilityDCAT-AP_minimum%20population_240205.xml",
+              "catalogue": "mobilityDCAT",
+              "preProcessing": true
+            }
+          }
+        },
+        {
+          "header": {
+            "name": "piveau-consus-exporting-hub",
+            "segmentNumber": 2,
+            "title": "Exporter zum Hub",
+            "processed": false
+          },
+          "body": {}
+        }
+      ]
+    }
+  }
+  

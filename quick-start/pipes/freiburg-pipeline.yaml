@@ -1,0 +1,23 @@
+header:
+  id: a6813dbb-c48e-4d43-923b-813c7c6ecb72
+  name: freiburg
+  title: Harvesting - Freiburg
+  context: piveau
+  transport: payload
+  version: "2.0.0"
+body:
+  segments:
+    - header:
+        name: piveau-consus-importing-rdf
+        segmentNumber: 1
+        title: Importing RDF
+      body:
+        config:
+          address: https://repo.piveau.datenraum-dev.freiburg.de/datasets?hydra=true&valueType=metadata&locale=de
+          catalogue: datenraum-freiburg
+          preProcessing: true
+    - header:
+        name: piveau-consus-exporting-hub
+        segmentNumber: 2
+        title: Exporting hub
+      body: {}

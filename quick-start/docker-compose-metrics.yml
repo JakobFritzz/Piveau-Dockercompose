@@ -1,24 +1,20 @@
-
-
 services:
   piveau-hub-repo:
     image: registry.gitlab.com/piveau/hub/piveau-hub-repo:3.2.19
+    container_name: piveau-hub-repo
     logging:
       options:
         max-size: "50m"
     ports:
-      - 8081:8080
+      - 8080:8080
       - 8085:8085
       - 5002:5000
     environment:
-      - PIVEAU_HUB_API_KEY=yourRepoApiKey
+      - PIVEAU_HUB_SEARCH_SERVICE={"enabled":true,"url":"piveau-hub-search","port":8080,"api_key":"HuBsRcHkey"}
+      - PIVEAU_HUB_API_KEY=HuBrePokey
       - PIVEAU_HUB_SHELL_CONFIG={"http":{},"telnet":{}}
       - PIVEAU_TRIPLESTORE_CONFIG={"address":"http://virtuoso:8890","clearGeoDataCatalogues":["*"]}
-      - PIVEAU_HUB_VALIDATOR={"enabled":true,"metricsPipeName":"metrics","history":false}
-      - PIVEAU_HUB_SEARCH_SERVICE={"enabled":false}
       - JAVA_OPTS=-Xms1g -Xmx2g
-    volumes:
-      - ./pipes:/usr/verticles/pipes
 
 
   piveau-consus-exporting-hub:

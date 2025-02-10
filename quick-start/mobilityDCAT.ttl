@@ -1,0 +1,10 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dc: <http://purl.org/dc/terms/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://piveau.io/id/catalogue/mobilityDCAT-AP>
+  a dcat:Catalog ;
+  dc:language <http://publications.europa.eu/resource/authority/language/ENG> ;
+  dc:title "mobilityDCAT-AP Katalog"@en ;
+  dc:description "Ein Katalog für mobilityDCAT-AP Daten"@en ;
+  dc:type "dcat-ap"^^xsd:string .
