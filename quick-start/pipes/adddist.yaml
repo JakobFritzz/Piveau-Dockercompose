@@ -1,0 +1,23 @@
+header:
+  id: 12345678-aaaa-bbbb-1234-123456789abc
+  name: adddist
+  title: Harvesting - adddist
+  context: piveau
+  transport: payload
+  version: "2.0.0"
+body:
+  segments:
+    - header:
+        name: piveau-consus-importing-rdf
+        segmentNumber: 1
+        title: Importing RDF
+      body:
+        config:
+          address: http://192.168.2.74:8000/dataset-distribution.xml
+          catalogue: testcatalogue
+          preProcessing: true
+    - header:
+        name: piveau-consus-exporting-hub
+        segmentNumber: 2
+        title: Exporting hub
+      body: {}

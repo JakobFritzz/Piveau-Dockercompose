@@ -1,0 +1,23 @@
+header:
+  id: 12345678-0987-bbbb-1234-123456789cha
+  name: changeddataset
+  title: Harvesting - changedpipe
+  context: piveau
+  transport: payload
+  version: "2.0.0"
+body:
+  segments:
+    - header:
+        name: piveau-consus-importing-rdf
+        segmentNumber: 1
+        title: Importing RDF
+      body:
+        config:
+          address: http://192.168.2.74:8000/dataset-two.xml
+          catalogue: mobilityDCAT-AP
+          preProcessing: true
+    - header:
+        name: piveau-consus-exporting-hub
+        segmentNumber: 2
+        title: Exporting hub
+      body: {}

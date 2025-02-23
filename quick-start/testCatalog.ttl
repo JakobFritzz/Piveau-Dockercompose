@@ -1,0 +1,9 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dc: <http://purl.org/dc/terms/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://piveau.io/catalogues/testcatalogue> a dcat:Catalog ;
+    dc:language <http://publications.europa.eu/resource/authority/language/DEU> ;
+    dc:title "Neuer Katalog"@de ;
+    dc:description "Dieser Catalog ist um Veränderungen in den XML Dateien zu testen"@de ;
+    dc:type "dcat-ap"^^xsd:string .
